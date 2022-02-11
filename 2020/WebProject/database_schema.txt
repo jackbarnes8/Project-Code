@@ -1,0 +1,100 @@
+	--TABLES
+
+CREATE TABLE Tasks (
+	taskName VARCHAR(255),
+	category VARCHAR(255),
+	assignee VARCHAR(255),
+	dueDate VARCHAR(20),
+	priority VARCHAR(20),
+	taskDescription VARCHAR(1000),
+	roster VARCHAR(50),
+	id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Users (
+	name VARCHAR(50),
+	email VARCHAR(50) NOT NULL,
+	password VARCHAR(128),
+	availability VARCHAR(30),
+	roster VARCHAR(30),
+	PRIMARY KEY(email)
+);
+
+CREATE TABLE Rosters (
+	name VARCHAR(20),
+	manager VARCHAR(20),
+	id INT NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(id)
+);
+
+
+
+	--QUERIES
+
+
+--TASK QUERIES
+
+--IMPLEMENTED: add tasks to the tasks table.
+	INSERT INTO Tasks VALUES (?, ?, ?, ?, ?, ?); 		--?'s represent taskName, category, assignee, dueDate, priority, description and roster columns
+
+--IMPLEMENTED, INCOMPLETE: retrieve tasks that belong to a certain roster (for initial population of the tasks)
+	SELECT * FROM Tasks INNER JOIN Rosters ON Tasks.roster = Rosters.name WHERE Rosters.name = ?;
+
+--retrieve tasks that belong to a certain user (for when "Show my tasks" is clicked)
+	SELECT * FROM Tasks INNER JOIN Users ON Tasks.assignee = Users.name WHERE Tasks.assignee = ?;
+
+--IMPLEMENTED, UNTESTED: delete a task when it is marked as complete
+	DELETE FROM Tasks WHERE Tasks.taskName = ?;
+
+--Manager check
+
+
+
+
+--USER + LOGIN/SIGN UP QUERIES (0/3)
+
+-- WORKING: add a user to the users table upon signup
+	INSERT INTO Users VALUES (?, ?, ?, ?, ?); 		--?'s represent name, email, is_manager, Roster, and Group columns
+
+-- IMPLEMENTED, UNTESTED: retrieve a user upon correct login
+	SELECT * FROM Users WHERE Users.email = ?;
+
+--Sets the availability of that user when they change their settings.
+	UPDATE Users SET monday_availability = 1 WHERE Users.name = ?;		//available
+	UPDATE Users SET monday_availability = 0 WHERE Users.name = ?;		//not available
+	--same queries for all other days
+
+
+
+--ROSTER QUERIES (2/4)
+
+--IMPLEMENTED, UNTESTED: add a roster to the roster table
+	INSERT INTO Rosters (?, ?); 			--?'s represent name and manager columns
+
+--IMPLEMENTED, UNTESTED: retrieve a roster to set as the current roster for that user
+	SELECT name FROM Rosters INNER JOIN Users ON Rosters.name = Users.roster WHERE Users.name = ?;
+
+--IMPLEMENTED, UNTESTEd: Set the roster for a particular user when they join/create it
+	UPDATE Users SET roster = ? WHERE Users.name = ?;
+
+--Set the manager of a roster when that user creates the roster.
+	UPDATE Users SET is_manager = 1 WHERE Users.name = ?;
+
+
+
+
+
+--GROUP QUERIES
+
+--add a group to the group table
+	INSERT INTO Groups (?, ?);	 		--?'s represent name and roster columns
+
+--retrieve groups for a given roster
+	SELECT name FROM Groups INNER JOIN Rosters ON Groups.name = Rosters.name WHERE Rosters.name = ?;
+
+--Set the group for a particular user when they are added to that group
+	UPDATE Users SET group = ? WHERE Users.name = ?;
+
+--retrieve all users of a certain group
+	SELECT * FROM Users INNER JOIN Groups ON Users.group = Groups.name WHERE Groups.name= ?;

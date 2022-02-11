@@ -1,0 +1,9 @@
+
+
+Manager of Demo Roster:
+email: admin@admin
+password: admin
+
+Normal user of Demo Roster:
+email: alice@alice
+password: test

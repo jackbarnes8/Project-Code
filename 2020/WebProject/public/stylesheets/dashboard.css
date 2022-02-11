@@ -1,0 +1,113 @@
+
+		body {
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			background-color: snow;
+		}
+
+		#leftsidebar {
+			height: 100%;
+			width: 25em; /*was 350px*/
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			background-color: gainsboro;
+			overflow-x: hidden;
+			margin-top: 170px; /*Brings the top part down a bit */
+
+			/*Borders*/
+			border: 2px solid black;
+			  border-top-right-radius: 25px;
+		}
+
+		#rightsidebar {
+			height: 100%;
+			width: 25em;
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			right: 0;
+			background-color: gainsboro;
+			overflow-x: hidden;
+			margin-top: 170px; /*Brings the top part down a bit */
+			float: right;
+
+			/*Borders*/
+			border: 2px solid black;
+			  border-top-left-radius: 25px;
+		}
+
+		/*For the div containing the tasks*/
+		#task-area-headings-div {
+			width: 59.8%;
+			margin: 5% auto;
+			left: 0;
+			right: 0;
+			position: fixed;
+			margin-top: 100px;
+		}
+
+		#task-nav-bar {
+			background-color: ghostwhite;
+
+			border: 2px groove black;
+		}
+
+
+		.task-area {
+		  width: 60%;
+		  height:  30em; /*was 500px*/
+		  margin: 5% auto;
+			left: 0;
+			right: 0;
+			position: fixed;
+			margin-top: 231px;
+		  overflow-x: auto;
+
+		  z-index: 1;
+		  background-color: snow;
+		}
+
+		 /*Class for the top nav bar. */
+		#top-nav-bar {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			}
+
+		/*Table header. Adapted from https://www.w3schools.com/Css/css_table.asp*/
+		th {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: center;
+			background-color: #333;
+			color: white;
+			}
+
+		/*Table data. Adapted from https://www.w3schools.com/Css/css_table.asp*/
+		td  {
+			text-align: center;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			}
+
+		/*Gives alternating colours to the rows, and hovering when you mouse over. Adapted from https://www.w3schools.com/Css/css_table.asp*/
+			tr:nth-child(even){background-color: #f2f2f2;}
+			tr:hover {background-color: #ddd;}
+
+		#roster-title {
+			text-align: center;
+		}

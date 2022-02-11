@@ -1,0 +1,30 @@
+/*Class for the top nav bar. */
+         #top-nav-bar {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+			position: fixed;
+			top: 0;
+			width: 100%;
+            }
+
+         li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+                }
+
+        #center-area {
+                width: 60%;
+                height:  30em; /*was 500px*/
+                margin: 5% auto;
+                left: 0;
+                right: 0;
+                position: fixed;
+                overflow-x: auto;
+                    z-index: 1;
+                  }

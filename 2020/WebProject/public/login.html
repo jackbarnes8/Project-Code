@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Login</title>
+	<link rel="stylesheet" href="stylesheets/login.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue script-->
+<script src="javascripts/login.js" defer></script> <!-- custom js-->
+
+</head>
+
+
+
+
+
+<body>
+	<!-- Top nav bar-->
+<div id="vuemain">
+	<ul id=top-nav-bar><li><a href="index.html">Home</a></li></ul>
+
+
+
+	<!-- center area (for tasks)-->
+
+	<div id=login-area-headings>
+		<h1 id=group-title>Login</h1> <!-- name of the group-->
+	</div>
+
+	<div id=login-area>
+
+		<div id=login-div>
+			<label for="email">Email:</label><br>
+			<input type="text" id="email" name="email" value=""><br>
+			<label for="pass">Password:</label><br>
+			<input type="password" id="pass" name="pass" value=""><br><br>
+			<button onclick="check_login()">Login</button>
+
+			<p v-if="successful_login === false" style="color: crimson;">Error logging in: invalid credentials.</p>
+		</div>
+	</div>
+
+
+</div>
+
+</body>
+</html>

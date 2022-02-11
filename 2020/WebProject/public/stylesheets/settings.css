@@ -1,0 +1,77 @@
+
+		body {
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			background-color: snow;
+		}
+
+
+		/*For the div containing the sign up*/
+		#login-area-headings {
+			width: 0%;
+			margin: 5% auto;
+			left: 0;
+			right: 0;
+            position: fixed;
+
+			margin-top: 100px;
+		}
+
+		#task-nav-bar {
+			background-color: ghostwhite;
+			/*Borders*/
+			border: 2px groove black;
+		}
+
+
+		#center-area-settings {
+		  width: 50%;
+		  height:  500px;
+		  margin: 5% auto;
+		  margin-left: 25%;
+		left: 0;
+		right: 0;
+		position: fixed;
+		margin-top: 231px;
+
+		  overflow-x: auto;
+		  background-color: ghostwhite;
+
+		  border: 1px solid black;
+		}
+
+
+
+		 /*Class for the top nav bar. applies to all unordered lists */
+		#top-nav-bar {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		#sidenav {
+		position: absolute;
+		height: 100%;
+		width: 160px;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		background-color:gainsboro;
+		overflow-x: hidden;
+		}
+
+		#actual-settings {
+		margin-left: 180px;
+		}

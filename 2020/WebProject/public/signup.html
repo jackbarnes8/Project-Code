@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="stylesheets/signup.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue script-->
+	<script src="javascripts/signup.js" defer></script> <!-- custom js-->
+</head>
+
+
+
+
+
+<body>
+	<div id=vuemain>
+	<!-- Top nav bar-->
+	<ul id=top-nav-bar><li><a href="index.html">Home</a></li></ul>
+
+
+
+	<!-- center area (for tasks)-->
+
+	<div id=login-area-headings>
+		<h1 id=group-title>Signup</h1>
+	</div>
+
+
+
+	<div id=login-area>
+
+
+		<div id=input-area>
+			<label for="name">Name:</label><br>
+			<input type="text" id="name" name="name" value=""><br>
+
+			<label for="email">Email:</label><br>
+			<input type="text" id="email" name="email" value=""><br>
+
+			<label for="pass">Password:</label><br>
+			<input type="password" id="pass" name="pass" value=""><br>
+
+			<button onclick="create_account()">Sign Up</button>
+
+			<p v-if="successful_login === false">Error with creating account</p>
+		</div>
+
+
+	</div>
+
+	</div>
+</body>
+</html>

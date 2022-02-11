@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Settings</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="stylesheets/settings.css">
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue script-->
+	<script src="javascripts/settings.js" defer></script> <!-- custom js-->
+
+
+</head>
+
+
+<body>
+	<div id=vuemain>
+
+
+
+	<!-- Top nav bar-->
+	<ul id=top-nav-bar><li><a href="dashboard.html">Back to Dashboard</a></li></ul>
+
+
+
+	<!-- center area-->
+
+	<div id=login-area-headings>
+		<h1 id=group-title>Settings</h1>
+	</div>
+
+
+	<div id=center-area-settings>
+
+		<div id=actual-settings>
+
+
+
+			<div id=profile v-if="current_setting === 'Profile'">
+				<h2>Profile Information</h2>
+				<h3 v-model="current_user">Your Email: {{ current_user }}</h3>
+			</div>
+
+
+
+			<div id=availability v-if="current_setting === 'Availability'">
+				<h2> Availability</h2>
+
+				<input type="checkbox" id="monday" name="monday" value="Monday">
+				<label for="monday">Monday</label> <br>
+
+				<input type="checkbox" id="tuesday" name="tuesday" value="Tuesday">
+				<label for="tuesday">Tuesday</label> <br>
+
+				<input type="checkbox" id="wednesday" name="wednesday" value="Wednesday">
+				<label for="wednesday">Wednesday</label> <br>
+
+				<input type="checkbox" id="thursday" name="thursday" value="Thursday">
+				<label for="thursday">Thursday</label> <br>
+
+				<input type="checkbox" id="friday" name="friday" value="Friday">
+				<label for="friday">Friday</label> <br>
+
+				<button class="w3-button w3-teal" onclick="update_availability();">Update Availability</button>
+				<p v-if="availabilities_updated">Availability updated!</p>
+			</div>
+		</div>
+
+		<div id=sidenav>
+			<button class="w3-button w3-block w3-teal" v-on:click="switch_to_profile()">Profile</button>
+			<button class="w3-button w3-block w3-teal" v-on:click="switch_to_availability()">Availability</button>
+
+		  </div>
+
+
+	</div>
+
+
+	</div>
+
+
+	<script>window.addEventListener('load', function () { get_session(); }); </script>
+</body>
+</html>

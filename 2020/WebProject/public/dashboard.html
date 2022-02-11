@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="stylesheets/dashboard.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue script-->
+	<script src="javascripts/dashboard.js" defer></script> <!-- custom js-->
+
+</head>
+
+
+<body>
+<div id="vuemain">
+
+	<!-- Top nav bar-->
+	<ul id=top-nav-bar>
+		<li style="float: left;"><a>About</a></li>
+		<li style="float: right;"><a href="#" onclick="logout()">Logout</a></li>
+		<li style="float: right;"><a href="settings.html">Account Settings</a></li>
+
+	</ul>
+
+	<h3 v-model="username" style="margin-top: 2em; position: fixed;">Welcome {{ username }}.</h3>
+	<h3 v-model="roster_id" v-if="part_of_roster" style="margin-top: 2em; float:right;">Roster id: {{ roster_id }} </h3> <br>
+	<h3 v-if="is_manager" style="margin-top: 2em; position: fixed;">You are the manager of this roster.</h3>
+
+	<!-- left side bar (team members and group display)-->
+	<div id=leftsidebar>
+		<h2 style="padding-left: 2px;">Team</h2> <!-- Displays all users of this particular roster -->
+		<ul>
+			<li v-for="user in roster_users" style="padding-left: 2px;">{{ user.name }}</li> <!-- first displayed user is the manager -->
+		</ul>
+
+	</div>
+
+	<!-- right side bar (details and description)-->
+	<div id=rightsidebar>
+		<h1 style="text-align:center" v-model="selected_task_object">{{ selected_task_object.taskName }}</h1>
+
+		<h3 style="padding-left: 2px;" v-model="selected_task_object">Category: {{ selected_task_object.category }} </h3>
+
+		<h3 style="padding-left: 2px;" v-model="selected_task_object">Assigned to: {{ selected_task_object.assignee }}</h3>
+
+		<h3 style="padding-left: 2px;" v-model="selected_task_object">Due Date: {{ selected_task_object.dueDate }} </h3>
+
+		<hr>
+		<h3 style="padding-left: 2px;">Description:</h3>
+		<p style="padding-left: 2px;" v-model="selected_task_object"> {{ selected_task_object.taskDescription }} </p>
+	</div>
+
+
+
+	<!-- Heading area (contains buttons to interact with the site and displays and the forms for creating a new roster and group-->
+	<div id=task-area-headings-div>
+		<h1 id=roster-title v-if="part_of_roster" v-model="current_roster"> {{current_roster}} </h1> <!-- name of the current roster name-->
+		<button class="w3-button w3-green w3-large w3-block" v-if="part_of_roster === false" v-on:click="change_creating_roster()"> Click to Create Roster</button>
+		<button class="w3-button w3-teal w3-large w3-block" v-if="part_of_roster === false" v-on:click="change_joining_roster()"> Click to Join Roster</button>
+		<button class="w3-button w3-teal" v-if="part_of_roster && creating_group === false && is_manager === true" v-on:click="change_creating_new_tasks()">Add new task</button> <!-- NOTE: also only show this if the person is a manager once that is implemented-->
+		<button class="w3-button w3-teal" v-if="creating_new_task === false && creating_group === false && part_of_roster === true" onclick="get_my_tasks()">Show only my tasks</button> 	<!-- only show this if you are not making a new task and have tasks-->
+		<button class="w3-button w3-teal" v-if="creating_new_task === false && creating_group === false && part_of_roster === true" onclick="get_initial_tasks()">Show all tasks</button>
+
+	<!--	<button class="w3-button w3-teal" v-if="creating_new_task === false && part_of_roster === true && creating_group === false && is_manager === true" v-on:click="change_creating_group()">Create Group</button> -->
+
+		<br>
+
+		<div v-if="creating_roster">
+			<label for="form_rname">Roster Name: </label>
+				<input type="text" id="form_rname" name="form_rname" value=""> <br>
+
+			<button class="w3-button w3-teal" onclick="create_roster()">Create Roster</button>
+			<button class="w3-button" v-on:click="change_creating_roster()">Cancel</button>
+		</div>
+
+		<div v-if="joining_roster">
+			<label for="form_rid">Roster ID: </label>
+				<input type="text" id="form_rid" name="form_rid" value=""> <br>
+
+			<button class="w3-button w3-teal" onclick="join_roster()">Join Roster</button>
+			<button class="w3-button" v-on:click="change_joining_roster()">Cancel</button>
+		</div>
+
+		<div v-if="creating_group">
+			<label for="form_groupName">Group Name: </label>
+				<input type="text" id="form_groupName" name="form_groupName" value=""> <br>
+
+			<!-- <p>Who's in this group?</p> -->
+				<!-- Need a v-for here with the html select element that creates check boxes for each user within this roster to be added to the group -->
+			<button class="w3-button w3-teal" onclick="create_group()">Create Group</button>
+			<button class="w3-button" v-on:click="change_creating_group()">Cancel</button>
+
+		</div>
+
+	</div>
+
+
+	<!-- Form to create new task, only if the creating_new_task boolean has been flagged-->
+	<div class=task-area v-if="creating_new_task">
+		<form>
+			<label for="form_tname" id="newTask_form">Task:</label>
+				<input type="text" id="form_tname" name="form_tname" value=""> <br> <br>
+
+			<label for="form_category">Category: </label>
+				<input type="text" id="form_category" name="form_category" value=""> <br> <br>
+
+			<label for="user-select">Assignee: </label>
+			<!--	<input type="text" id="form_assignee" name="form_assignee" value=""> <br> <br> -->
+				<select name="user-select" id ="user-select">
+					<option v-for="user in roster_users" :value="user.name">{{ user.name }} ( {{ user.availability }})</option>
+				</select> <br> <br>
+
+			<label for="form_duedate">Due Date: </label>
+				<input type="text" id="form_duedate" name="form_duedate" value=""> <br> <br>
+
+			<label for="form_priority">Priority: </label>
+				<input type="text" id="form_priority" name="form_priority" value=""> <br> <br>
+
+			<label for="form_description">Description: </label> <br>
+				<textarea id="form_description"></textarea>
+		</form>
+		<button class="w3-button w3-teal" onclick="create_new_task()">Create new task</button>
+		<button class="w3-button" v-on:click="change_creating_new_tasks()">Cancel</button>
+
+	</div>
+
+
+
+	<!-- Contains the tasks-->
+	<div class=task-area v-if="creating_new_task === false && creating_roster === false && creating_group === false && joining_roster === false">
+
+		<!-- tasks appear on this table-->
+		<table style="width:100%" v-if="has_tasks">
+			<tr>
+				<th>Task Name</th>
+				<th>Category</th>
+				<th>Assigned to...</th>
+				<th>Due Date</th>
+				<th>Priority</th>
+			</tr>
+
+			<!-- renders the items in the task object. the onclick function changes the currently selected task object to be rendered into the right side bar-->
+			<tr v-for="task in task_object">
+				<td v-on:click="show_task_info(task)"> <input v-if="username === task.assignee" type="radio" id="mark_as_complete" v-on:click="mark_complete(task)" value=""> {{ task.taskName }}</td> <!-- probaly should change the input type to a radio button, AND make it so that only users who are assigned that task can complete it -->
+				<td v-on:click="show_task_info(task)">{{ task.category }}</td>
+				<td v-on:click="show_task_info(task)">{{ task.assignee }}</td>
+				<td v-on:click="show_task_info(task)">{{ task.dueDate }}</td>
+				<td v-on:click="show_task_info(task)">{{ task.priority }}</td>
+			</tr>
+		</table>
+		<h1 style="text-align: center;" v-else>There are no tasks.</h1>
+	</div>
+
+</div>
+
+<!--Note with the scripts: you will need to add functions and run in this order: get_user, get_roster, get_initial_tasks -->
+<script>window.addEventListener('load', function () { get_session(); get_username(); get_roster(); get_initial_tasks(); get_roster_users(); }); //This function waits for the page to load, then runs the functions</script>
+
+</body>
+</html>

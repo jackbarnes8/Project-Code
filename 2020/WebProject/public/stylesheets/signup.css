@@ -1,0 +1,108 @@
+
+		body {
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			background-color: snow;
+		}
+
+		#leftsidebar {
+			height: 100%;
+			width: 350px;
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			background-color: gainsboro;
+			overflow-x: hidden;
+			margin-top: 200px; /*Brings the top part down a bit */
+
+			/*Borders*/
+			border: 2px solid black;
+			  border-top-right-radius: 25px;
+		}
+
+		#rightsidebar {
+			height: 100%;
+			width: 350px;
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			right: 0;
+			background-color: gainsboro;
+			overflow-x: hidden;
+			margin-top: 200px; /*Brings the top part down a bit */
+			float: right;
+
+			/*Borders*/
+			border: 2px solid black;
+			  border-top-left-radius: 25px;
+		}
+
+
+		#login-area-headings {
+			width: 59.8%;
+			margin: 5% auto;
+			left: 0;
+			right: 0;
+			position: fixed;
+			margin-top: 100px;
+		}
+
+		#task-nav-bar {
+			background-color: ghostwhite;
+			/*Borders*/
+			border: 2px groove black;
+		}
+
+
+		#login-area {
+		  width: 25%;
+		  height:  500px;
+		  margin: 5% auto;
+		  margin-left: 750px;
+		left: 0;
+		right: 0;
+		position: fixed;
+		margin-top: 231px;
+
+		  overflow-x: auto;
+		  background-color: gainsboro;
+
+		  border: 1px solid black;
+		}
+
+		#input-area {
+		width: 50%;
+		  height:  500px;
+		  margin: 5% auto;
+		  margin-left: 45%;
+		  margin-top: 5%;
+		left: 0;
+		right: 0;
+		position: fixed;
+		}
+
+
+		 /*Class for the top nav bar. applies to all unordered lists */
+		#top-nav-bar {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			}
+
+
+		#group-title {
+			text-align: center;
+		}
